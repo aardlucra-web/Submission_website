@@ -7,4 +7,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aardlucra-web.github.io/portfolio/sitemap.xml
+Sitemap: https://aardlucra-web.github.io/Submission_website/sitemap.xml
