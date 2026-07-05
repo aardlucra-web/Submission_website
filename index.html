@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ari's portfolio</title>
+
+  <!-- makes it so that i dont get flashed by my dark mode DO NOT TOUCH -->
+<script> 
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.documentElement.classList.add('dark-early');
+  }
+</script>
+
+<!-- sets my bg to funny colour (over everything else) -->
+<style> 
+  html.dark-early body { background: #1c1812 !important; }
+</style>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+  <main id="desktop">
+
+      <div id="hero-card">
+<!-- for my main box -->
+        <div class="hero-titlebar">
+          <div class="wm-btn wm-close"></div>
+          <div class="wm-btn wm-min"></div>
+          <div class="wm-btn wm-max"></div>
+          <span class="hero-titlebar-label">Ari's profile</span>
+        </div>
+
+        <div class="hero-body">
+<!-- for the left side of the box so just avatar and stuff -->
+          <div class="hero-left">
+            <div class="hero-avatar" id="hero-avatar"></div>
+            <h1 class="hero-name" id="hero-name"></h1>
+            <p class="hero-subtitle" id="hero-subtitle"></p>
+          </div>
+
+          <!-- this is button panels -->
+          <nav class="hero-right">
+            <!-- my about panel -->
+            <button class="hero-link-btn" data-panel="about">
+              <span class="hero-link-icon">🙋</span>
+              <span class="hero-link-label">about</span>
+            </button>
+            <!-- my skills panel -->
+            <button class="hero-link-btn" data-panel="skills">
+              <span class="hero-link-icon">⚡</span>
+              <span class="hero-link-label">skills</span>
+            </button>
+            <!--  projects panel -->
+            <button class="hero-link-btn" data-panel="projects">
+              <span class="hero-link-icon">📁</span>
+              <span class="hero-link-label">projects</span>
+            </button>
+            <!--  contacts panel -->
+            <button class="hero-link-btn" data-panel="contact">
+              <span class="hero-link-icon">✉️</span>
+              <span class="hero-link-label">contact</span>
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- about me panel (head)-->
+      <div id="panel-about" class="panel">
+        <div class="panel-header">
+           <div class="wm-btn wm-close"></div>
+           <div class="wm-btn wm-min"></div>
+           <div class="wm-btn wm-max"></div>
+           <span class="panel-title">about.txt</span>
+           <button class="panel-close-btn" data-close="about">×</button>
+        </div>
+
+<!-- about me contents -->
+        <div class="panel-body">
+          <p class="about-name" id="about-name"></p>
+          <p class="about-meta" id="about-meta"></p>
+          <hr class="inner-divider">
+          <p class="panel-text" id="about-bio"></p>
+          <hr class="inner-divider">
+          <div class="section-label">interests</div>
+          <div class="tag-row" id="about-tags"></div>
+        </div>
+      </div>
+
+<!-- skills head -->
+      <div id="panel-skills" class="panel">
+        <div class="panel-header">
+          <div class="wm-btn wm-close"></div>
+          <div class="wm-btn wm-min"></div>
+          <div class="wm-btn wm-max"></div>
+          <span class="panel-title">skills.json</span>
+          <button class="panel-close-btn" data-close="skills">×</button>
+        </div>
+
+<!-- skills content -->
+        <div class="panel-body">
+          <div class="section-label">hard skills</div>
+          <div id="skills-hard"></div>
+          <hr class="inner-divider">
+          <div class="section-label">soft skills</div>
+          <div class="tag-row" id="skills-soft"></div>
+        </div>
+      </div>
+
+<!-- projects head -->
+      <div id="panel-projects" class="panel">
+        <div class="panel-header">
+          <div class="wm-btn wm-close"></div>
+          <div class="wm-btn wm-min"></div>
+          <div class="wm-btn wm-max"></div>
+          <span class="panel-title">projects/</span>
+          <button class="panel-close-btn" data-close="projects">×</button>
+        </div>
+
+<!-- projects body -->
+        <div class="panel-body">
+          <div id="projects-list"></div>
+        </div>
+      </div>
+
+<!-- contact head -->
+      <div id="panel-contact" class="panel">
+        <div class="panel-header">
+          <div class="wm-btn wm-close"></div>
+          <div class="wm-btn wm-min"></div>
+          <div class="wm-btn wm-max"></div>
+          <span class="panel-title">contact.md</span>
+          <button class="panel-close-btn" data-close="contact">×</button>
+        </div>
+
+<!-- contact body -->
+        <div class="panel-body">
+          <div class="section-label">get in touch</div>
+          <a class="contact-email" id="contact-email" href="#"></a>
+          <hr class="inner-divider">
+          <div id="contact-socials"></div>
+        </div>
+      </div>
+
+  </main>
+
+  <footer id="taskbar">
+<!-- name on taskbar -->
+    <span class="taskbar-logo">ari's desktop</span>
+
+    <!-- the 4 buttons on the bottom left taskbar -->
+    <button class="taskbar-btn" data-panel="about">
+      <span class="dot"></span> about
+    </button>
+
+    <button class="taskbar-btn" data-panel="skills">
+      <span class="dot"></span> skills
+    </button>
+
+    <button class="taskbar-btn" data-panel="projects">
+      <span class="dot"></span> projects
+    </button>
+
+    <button class="taskbar-btn" data-panel="contact">
+      <span class="dot"></span> contact
+    </button>
+
+    <!-- dark mode toggle button on taskbar -->
+    <div class="taskbar-right">
+      <div class="toggle-pill" id="dark-toggle">
+        <span>dark</span>
+        <div class="toggle-track">
+          <div class="toggle-thumb"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+# robots.txt — instructions for search engine bots
+# This file tells bots like Googlebot which pages they're allowed to visit.
+# "User-agent: *" means "this rule applies to all bots"
+# "Allow: /" means "you can crawl everything"
+# "Sitemap:" tells bots where to find our sitemap (helps Google index the site)
+
+User-agent: *
+Allow: /
+
+Sitemap: https://aardlucra-web.github.io/portfolio/sitemap.xml

@@ -1,0 +1,639 @@
+/* style.css */
+
+/* normal webpage colors and such (global changes) */
+:root {
+  --cream:        #F5F0E8;
+  --cream-mid:    #EDE6D6;
+  --cream-dark:   #E0D6C2;
+  --panel-bg:     #FDFAF4;
+  --panel-border: #D4C9B0;
+  --text:         #2C2416;
+  --text-muted:   #7A6E5E;
+  --text-accent:  #8B6E3F;
+  --accent:       #C4974A;
+  --accent-soft:  #F0E2C4;
+  --accent-dark:  #B5883D;
+  --tag-bg:       #E8DECA;
+  --tag-text:     #5C4A2A;
+  --green:        #4A7C59;
+  --green-soft:   #D6EAD9;
+  --bar-bg:       #1A1612;
+  --bar-text:     #C8B89A;
+  --bar-border:   #3A3028;
+  --shadow:       2px 8px 32px rgba(40,25,5,0.15);
+  --shadow-big:   2px 14px 44px rgba(40,25,5,0.22);
+  --r:            12px;
+  --r-sm:         7px;
+  --taskbar-h:    52px;
+  --ease:         0.18s ease;
+}
+
+/* dark mode (dark mode just overrides these same vars) */
+body.dark {
+  --cream:        #1C1812;
+  --cream-mid:    #242018;
+  --cream-dark:   #2E2820;
+  --panel-bg:     #201C14;
+  --panel-border: #3A3428;
+  --text:         #E8DEC8;
+  --text-muted:   #9A8E78;
+  --text-accent:  #C4974A;
+  --accent-soft:  #2E2418;
+  --tag-bg:       #2A2418;
+  --tag-text:     #C8B48A;
+  --green-soft:   #1A2A1E;
+  --green:        #6AAE7E;
+  --shadow:       2px 8px 32px rgba(0,0,0,0.45);
+  --shadow-big:   2px 14px 44px rgba(0,0,0,0.6);
+}
+
+/* resets to 0 so that the default margins dont mess up sizing math */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text);
+}
+/* background stuff */
+body {
+  background: var(--cream);
+  background-image: radial-gradient(circle, var(--cream-dark) 1px, transparent 1px);
+  background-size: 30px 30px;
+  transition: background-color var(--ease), color var(--ease);
+}
+
+/* all links will inherit its parent (whatever it may be) and also get rid of underline */
+a { color: inherit; text-decoration: none; }
+/* makes buttons not look basic AF (remember this tommorow) */
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* sets up the page for later */
+#desktop {
+  position: fixed;
+  inset: 0;
+  bottom: var(--taskbar-h);
+  overflow: hidden;
+}
+
+/* taskbar stuff */
+#taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--taskbar-h);
+  background: var(--bar-bg);
+  border-top: 1px solid var(--bar-border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 10px;
+  z-index: 1000;
+}
+
+/* taskbar logo */
+.taskbar-logo {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--accent);
+  margin-right: 14px;
+  white-space: nowrap;
+}
+
+
+/* buttons on my taskbar */
+.taskbar-btn {
+  height: 34px;
+  padding: 0 16px;
+  border-radius: var(--r-sm);
+  background: #2C2416;
+  border: 1px solid var(--bar-border);
+  font-size: 13px;
+  color: var(--bar-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background var(--ease), color var(--ease);
+  white-space: nowrap;
+}
+
+/* makes button look like it's interactable */
+.taskbar-btn:hover { background: #3A3028; color: #F5F0E8; }
+
+/* the fot beside the button that turns on and off */
+.taskbar-btn .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* when taskbar button is 'turned off' make it dimmed and opaque */
+.taskbar-btn.is-hidden { opacity: 0.5; }
+.taskbar-btn.is-hidden .dot { background: #5A5048; }
+
+/* the big button that says dark with the slider button inside */
+.toggle-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: #2C2416;
+  border: 1px solid var(--bar-border);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  color: var(--bar-text);
+  cursor: pointer;
+/* fixes the click dragging inciedent */
+  user-select: none;
+  transition: background var(--ease);
+}
+
+.toggle-pill:hover { background: #3A3028; }
+
+/* the oval slide button for dark mode */
+.toggle-track {
+  width: 34px; height: 18px;
+  border-radius: 9px;
+  background: #3A3028;
+  border: 1px solid var(--bar-border);
+  position: relative; flex-shrink: 0;
+}
+
+/* inside circle of dark mode button */
+.toggle-thumb {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: absolute;
+  top: 2px; left: 2px;
+  transition: left var(--ease);
+}
+
+/* the slides the circle when dark mode is on */
+body.dark .toggle-thumb { left: 17px; }
+
+/* moves the dark mode button all the way to the right */
+.taskbar-right { margin-left: auto; display: flex; align-items: center; }
+
+
+
+/* hero cards!! */
+#hero-card {
+  position: absolute;
+  /* cool centering trick i learned lmao */
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  /* had to add overflow hidden here, hero titlebar follows this so corners are rounded (kill me) */
+  overflow: hidden;
+  z-index: 50;
+  transition: box-shadow var(--ease);
+}
+
+/* me when big shadow on hovering */
+#hero-card:hover { box-shadow: var(--shadow-big); }
+
+
+/* titlebar design at top of hero card */
+.hero-titlebar {
+  background: var(--bar-bg);
+  padding: 11px 18px;
+  display: flex; align-items: center; gap: 7px;
+  border-bottom: 1px solid var(--bar-border);
+}
+
+/* label inside it slightly opaque because i like it that way */
+.hero-titlebar-label {
+  font-size: 12px;
+  color: var(--bar-text);
+  margin-left: 6px;
+  opacity: 0.75;
+}
+
+/* splits the card in half  */
+.hero-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+
+
+
+/* sets up the whole left side of the card */
+.hero-left {
+  padding: 32px 28px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--cream-dark);
+}
+
+/* circle where i put my picture */
+.hero-avatar {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: var(--tag-bg);
+  border: 2px solid var(--panel-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color var(--ease);
+}
+
+.hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* its where i put my name */
+.hero-name {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.2;
+  transition: color var(--ease);
+}
+
+/* words */
+.hero-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  transition: color var(--ease);
+}
+
+
+
+
+
+/* the right side of the hero and the setup*/
+.hero-right {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-content: center;
+}
+
+/* makes buttons */
+.hero-link-btn {
+  background: var(--cream);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 18px 10px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 7px;
+  cursor: pointer;
+  transition: background var(--ease), transform 0.12s, border-color var(--ease);
+}
+
+/* me when i hover over the button and i go "durr durr why button look not look good" */
+.hero-link-btn:hover {
+  background: var(--accent-soft);
+  transform: scale(1.04);
+  border-color: var(--accent);
+}
+
+/* when click on button, button go tiny */
+.hero-link-btn:active { transform: scale(0.97); }
+
+/* size of emoji's (remember to get rid of when changing to sumn better) */
+.hero-link-icon { font-size: 28px; line-height: 1; }
+
+/* size of the words inside the button */
+.hero-link-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: color var(--ease);
+}
+
+/* checks for hovering then chnages color */
+.hero-link-btn:hover .hero-link-label { color: var(--text-accent); }
+
+/* so the about panels are invisible first then pop up later */
+.panel {
+  position: absolute;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: none;
+  transition: box-shadow var(--ease), background var(--ease), border-color var(--ease);
+}
+
+/* is-visible is part of the show/hide mechanism */
+.panel.is-visible { display: flex; flex-direction: column; }
+/* shadows */
+.panel:hover { box-shadow: var(--shadow-big); }
+
+
+
+/* panel stuff */
+
+/* panel header */
+.panel-header {
+  background: var(--bar-bg);
+  border-bottom: 1px solid var(--bar-border);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 7px;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* panel feedback that it can be moved */
+.panel-header:active { cursor: grabbing; }
+
+/* the title */
+.panel-title {
+  font-size: 12px;
+  color: var(--bar-text);
+  margin-left: 6px;
+  opacity: 0.85;
+  flex: 1;
+}
+
+/* the buttons in the corner */
+.wm-btn {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.wm-btn:hover { opacity: 0.7; }
+.wm-close { background: #E87070; }
+.wm-min   { background: #E8B870; }
+.wm-max   { background: #70B870; }
+
+/* the close button on the  opposite corner */
+.panel-close-btn {
+  background: none; border: none;
+  color: var(--bar-text);
+  font-size: 18px; line-height: 1;
+  cursor: pointer;
+  opacity: 0.45;
+  padding: 0 2px;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.panel-close-btn:hover { opacity: 1; }
+
+/* body of teh panel */
+.panel-body {
+  padding: 22px 26px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* decorative heading */
+.section-label {
+  font-size: 10px;
+  color: var(--text-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+  transition: color var(--ease);
+}
+
+/* gets rid of default look and make my own cooler version */
+.inner-divider {
+  border: none;
+  border-top: 1px solid var(--cream-dark);
+  margin: 16px 0;
+  transition: border-color var(--ease);
+}
+
+/* sets the font inside the panels */
+.panel-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+  transition: color var(--ease);
+}
+
+/* makes the pills act like words in a sentence but still take parameters for width/heigh etc. */
+.tag {
+  display: inline-block;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background var(--ease), color var(--ease);
+}
+.tag.green { background: var(--green-soft); color: var(--green); }
+
+/* wraps around to next line when full */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* sizes of my panels */
+#panel-about    { width: 360px; max-height: 520px; }
+#panel-skills   { width: 340px; max-height: 480px; }
+#panel-projects { width: 400px; max-height: 580px; }
+#panel-contact  { width: 320px; max-height: 380px; }
+
+/* the name at the top of the panel */
+.about-name {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 3px;
+  transition: color var(--ease);
+}
+
+/* the the stuff undernearg it */
+.about-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  transition: color var(--ease);
+}
+
+/* makes room, pushes name to left and bar to right and adds bttom border to divide the rows and pads vertically so not cramped */
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  transition: border-color var(--ease);
+}
+
+/* removes the bottom border ONLY for the final row */
+.skill-item:last-child { border-bottom: none; }
+
+/* font and color for left side of row */
+.skill-name {
+  font-size: 14px;
+  color: var(--text);
+  transition: color var(--ease);
+}
+
+/* the skill bar holder */
+.skill-bar-bg {
+  width: 110px; height: 6px;
+  background: var(--cream-dark);
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: background var(--ease);
+}
+
+/* the actual bar inside (gets the width from JS) */
+.skill-bar {
+  height: 6px;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* box for each project */
+.project-card {
+  background: var(--cream);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  transition: background var(--ease), border-color var(--ease), transform 0.12s;
+}
+
+/* removes bottom margin like the skills one */
+.project-card:last-child { margin-bottom: 0; }
+/* me when i hover again */
+.project-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+/* name at top of each card */
+.project-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  transition: color var(--ease);
+}
+
+/* description text under title */
+.project-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  transition: color var(--ease);
+}
+
+/* row of pills, with wrap */
+.project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+
+/* individual tech pill tags. smaller font and padding. */
+.project-tag {
+  font-size: 11px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 3px 10px;
+  border-radius: 20px;
+  transition: background var(--ease), color var(--ease);
+}
+
+/* the view line with the funny arrow at the bottom of each card */
+.project-link {
+  font-size: 13px;
+  color: var(--text-accent);
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: color var(--ease);
+}
+.project-link:hover { color: var(--accent-dark); text-decoration: underline; }
+
+
+/* email address link */
+.contact-email {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-accent);
+  margin-bottom: 16px;
+  word-break: break-all;
+  display: block;
+  transition: color var(--ease);
+}
+.contact-email:hover { color: var(--accent-dark); text-decoration: underline; }
+
+/* Github button */
+.social-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--tag-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  margin-bottom: 8px;
+  width: 100%;
+  transition: background var(--ease), border-color var(--ease), transform 0.12s;
+}
+/* again bottom margin gone */
+.social-btn:last-child { margin-bottom: 0; }
+/* hoevr feature */
+.social-btn:hover { background: var(--accent-soft); border-color: var(--accent); transform: translateX(3px); }
+/* fixed size now no shrinking */
+.social-btn svg { flex-shrink: 0; }
+
+
+/* phonelayut */
+@media (max-width: 768px) {
+  html, body { overflow: auto; }
+  body { background-image: none; }
+
+  /* becomes scrolling page */
+  #desktop {
+    position: static;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 20px 16px calc(var(--taskbar-h) + 20px);
+    gap: 18px;
+    overflow: visible;
+    min-height: 100vh;
+  }
+
+  /* absolute cetering dissapears for mobile */
+  #hero-card {
+    position: static;
+    transform: none;
+    width: 100%; max-width: 480px;
+    z-index: auto;
+  }
+
+  /* colapses two coloumn grid into a one coloumn so left and right stack vertical */
+  .hero-body { grid-template-columns: 1fr; }
+  .hero-left { border-right: none; border-bottom: 1px solid var(--cream-dark); }
+
+  /* forces panels to always be visible */
+  .panel {
+    position: static !important;
+    display: flex !important;
+    width: 100% !important;
+    max-width: 480px;
+    max-height: none !important;
+  }
+
+  .panel-header { cursor: default; }
+  /* panel toggle buttons begone */
+  .taskbar-btn { display: none; }
+}
+
+
+/* some tweaks on small phones */
+@media (max-width: 480px) {
+  .hero-left { padding: 24px 20px; }
+  .hero-right { padding: 16px; gap: 8px; }
+  .hero-name { font-size: 22px; }
+  .panel-body { padding: 16px 18px; }
+}
+
