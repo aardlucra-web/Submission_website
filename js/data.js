@@ -14,8 +14,12 @@ const siteData = {
     school: "SAE University College",
     bio: "Backend-leaning CS student with a love for Python, clean code, and building things people actually enjoy using. Currently in my second trimester at SAE Australia, working through web dev, scripting, data structures, and more.",
     interests: [
-      "Hearthstone",
+      "TCG/CCG",
       "League of Legends (top 200 suppport on asia servers)",
+      "anime",
+      "art",
+      "tekken 7",
+      "friend slop games",
       "Minecraft modding",
       "ORV / manhwa",
       "Linux ricing",
